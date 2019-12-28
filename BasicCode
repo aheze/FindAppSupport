@@ -1,0 +1,44 @@
+///A file where miscellaneous code is pasted.
+
+
+
+//Bullet point text
+//need to convert to Swift 5 and test
+func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+    // If the replacement text is "\n" and the
+    // text view is the one you want bullet points
+    // for
+    if (text == "\n") {
+        // If the replacement text is being added to the end of the
+        // text view, i.e. the new index is the length of the old
+        // text view's text...
+
+
+        if range.location == textView.text.characters.count {
+            // Simply add the newline and bullet point to the end
+            var updatedText: String = textView.text!.stringByAppendingString("\n \u{2022} ")
+            textView.text = updatedText
+        }
+        else {
+
+            // Get the replacement range of the UITextView
+            var beginning: UITextPosition = textView.beginningOfDocument
+            var start: UITextPosition = textView.positionFromPosition(beginning, offset: range.location)!
+            var end: UITextPosition = textView.positionFromPosition(start, offset: range.length)!
+            var textRange: UITextRange = textView.textRangeFromPosition(start, toPosition: end)!
+            // Insert that newline character *and* a bullet point
+            // at the point at which the user inputted just the
+            // newline character
+            textView.replaceRange(textRange, withText: "\n \u{2022} ")
+            // Update the cursor position accordingly
+            var cursor: NSRange = NSMakeRange(range.location + "\n \u{2022} ".length, 0)
+            textView.selectedRange = cursor
+        }
+
+        return false
+
+
+    }
+    // Else return yes
+    return true
+}
