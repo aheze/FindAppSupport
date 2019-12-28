@@ -52,7 +52,6 @@ import RealmSwift
 class List: Object {
   @objc dynamic var name = ""
   @objc dynamic var description = ""
-  @objc dynamic var icon = UIImage()
   @objc dynamic var contents = ""
   //@objc dynamic var created = Date()
 }
@@ -76,7 +75,7 @@ func addNewList(name: String, desc: String, contents: String, icon: UIImage) {
         newList.name = name
         newList.description = desc
         newList.contents = contents
-        newList.icon = icon
+       // newList.icon = icon
 
         realm.add(newList) // 5
         lists.append(newList)
