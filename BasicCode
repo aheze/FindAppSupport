@@ -42,3 +42,86 @@ func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, repl
     // Else return yes
     return true
 }
+
+
+///realm
+
+import UIKit
+import RealmSwift
+
+class List: Object {
+  @objc dynamic var name = ""
+  @objc dynamic var description = ""
+  @objc dynamic var icon = UIImage()
+  @objc dynamic var contents = ""
+  //@objc dynamic var created = Date()
+}
+
+import RealmSwift
+var lists: Results<Item>?
+let realm = try! Realm()
+
+
+func loadLists() {
+    lists = realm.objects(List.self)
+    tableView.reloadData()
+}
+
+func addNewList(name: String, desc: String, contents: String, icon: UIImage) {
+  
+  do {
+     try realm.write { // 2
+        let newList = List() // 3
+
+        newList.name = name
+        newList.description = desc
+        newList.contents = contents
+        newList.icon = icon
+
+        realm.add(newList) // 5
+        lists.append(newList)
+      }
+    } catch {
+        print("error saving, \(error)")
+    }
+    tableView.reloadData()
+  }
+  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return lists.count ?? 1
+    }
+  
+  
+  
+  
+  
+  
+  
+  //MARK: - Search bar methods
+extension ListBrowserViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        lists = lists?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "name", ascending: true)
+        
+        tableView.reloadData()
+        
+    }
+    
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            loadLists()
+            
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+            
+        }
+    }
+}
+  
+  
+  
+  
+  
+}
