@@ -53,6 +53,7 @@ class List: Object {
   @objc dynamic var name = ""
   @objc dynamic var description = ""
   @objc dynamic var contents = ""
+  @objc dynamic var iconImageName = ""
   //@objc dynamic var created = Date()
 }
 
@@ -66,7 +67,7 @@ func loadLists() {
     tableView.reloadData()
 }
 
-func addNewList(name: String, desc: String, contents: String, icon: UIImage) {
+func addNewList(name: String, desc: String, contents: String, iconName: String) {
   
   do {
      try realm.write { // 2
@@ -75,7 +76,7 @@ func addNewList(name: String, desc: String, contents: String, icon: UIImage) {
         newList.name = name
         newList.description = desc
         newList.contents = contents
-       // newList.icon = icon
+        newList.iconImageName = iconName
 
         realm.add(newList) // 5
         lists.append(newList)
