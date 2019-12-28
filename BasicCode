@@ -62,6 +62,7 @@ var lists: Results<Item>?
 let realm = try! Realm()
 
 
+class ListBrowserViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 func loadLists() {
     lists = realm.objects(List.self)
     tableView.reloadData()
@@ -88,7 +89,9 @@ func addNewList(name: String, desc: String, contents: String, iconName: String) 
   }
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return lists.count ?? 1
-    }
+  }
+    
+}
   
   
   
