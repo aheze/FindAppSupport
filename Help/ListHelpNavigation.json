@@ -1,6 +1,14 @@
 {
 
-  "HelpDictionary": {
+  "HelpArray": [
+    {
     "What are Lists?": "https://raw.githubusercontent.com/zjohnzheng/FindAppSupport/master/Help/What%20are%20Lists_%20(3).html"
-  }
+    },
+    
+    {
+      "What are sdfs?": "https://raw.githubusercontent.com/zjohnzheng/FindAppSupport/master/Help/What%20are%20Lists_%20(3).html"
+      
+    }
+  
+  ]
 }
